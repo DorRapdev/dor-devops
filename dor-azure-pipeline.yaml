@@ -1,0 +1,48 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:
+- stage: 'Build'
+  jobs:
+  - job: 'Build'
+    steps:
+    - script: echo Build
+    - task: ServiceNow-DevOps-Agent-Artifact-Registration@1
+      inputs:
+        connectedServiceName: 'dev78163-Dor - DevOps-ServiceNow DevOps Service Connection'
+        artifactsPayload: |
+          {
+            "artifacts": [
+                {
+                  "name": "mysourcedor",
+                  "version": "1.$(Build.BuildId)",
+                  "semanticVersion": "1.$(Build.BuildId).0",
+                  "repositoryName": "rapdev-io.dor-devops"
+                }
+            ]
+          }
+- stage: 'Test'
+  jobs:
+  - job: 'Unit_Tests'
+    steps:
+    - script: echo Unit Tests
+  - job: 'Checkmarx_Scan'
+    steps:
+    - script: echo Checkmarx Scan
+- stage: 'Deploy'
+  jobs:
+  - job: 'UAT_Deploy'
+    steps:
+    - script: echo UAT Deploy
+  -job: 'Production_Deploy'
+    steps:
+    - script: echo Production Deploy
+  
