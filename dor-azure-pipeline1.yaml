@@ -22,7 +22,7 @@ stages:
           {
                       "artifacts": [
                           {
-                            "name": "mysourcedor",
+                            "name": "test-artifact",
                             "version": "1.$(Build.BuildId)",
                             "semanticVersion": "1.$(Build.BuildId).0",
                             "repositoryName": "rapdev-io.dor-devops"
