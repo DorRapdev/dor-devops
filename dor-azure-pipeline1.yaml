@@ -17,18 +17,18 @@ stages:
     - script: echo Build
     - task: ServiceNow-DevOps-Agent-Artifact-Registration@1
       inputs:
-        connectedServiceName: 'dev78163-Dor - DevOps-ServiceNow DevOps Service Connection'
+        connectedServiceName: 'DevOps Connection'
         artifactsPayload: |
           {
-            "artifacts": [
-                {
-                  "name": "mysourcedor",
-                  "version": "1.$(Build.BuildId)",
-                  "semanticVersion": "1.$(Build.BuildId).0",
-                  "repositoryName": "rapdev-io.dor-devops"
-                }
-            ]
-          }
+                      "artifacts": [
+                          {
+                            "name": "mysourcedor",
+                            "version": "1.$(Build.BuildId)",
+                            "semanticVersion": "1.$(Build.BuildId).0",
+                            "repositoryName": "rapdev-io.dor-devops"
+                          }
+                      ]
+                    }
 - stage: 'Test'
   jobs:
   - job: 'Unit_Tests'
