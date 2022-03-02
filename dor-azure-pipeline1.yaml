@@ -42,6 +42,21 @@ stages:
   - job: 'UAT_Deploy'
     steps:
     - script: echo UAT Deploy
+    - task: ServiceNow-DevOps-Agent-Package-Registration@1
+      inputs:
+        connectedServiceName: 'DevOps Connection'
+        packageName: 'test-package'
+        artifactsPayload: |
+          {
+                                "artifacts": [
+                                    {
+                                      "name": "test-artifact",
+                                      "version": "1.$(Build.BuildId)",
+                                      "semanticVersion": "1.$(Build.BuildId).0",
+                                      "repositoryName": "rapdev-io.dor-devops"
+                                    }
+                                ]
+                              }
   - job: 'Production_Deploy'
     steps:
     - script: echo Production Deploy
